@@ -122,6 +122,7 @@ obj = AES.new(secret_key, AES.MODE_CBC, iv)
 ```
 
 CBC is one of the classic modes of Cipher Operations, below are some the other modes:
+
 ![](https://raw.githubusercontent.com/Accession79/crypto-AES/main/images/AES%203.png)
 
 4. Encrypt the message with AES
