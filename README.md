@@ -1,3 +1,4 @@
+
 ## Advanced Encryption Standard - AES
 - AES was developed by NIST(National Institute of Standards and Technology) in 1997
 - It was developed for replacing DES which was slow and was vulnerable to various attacks
@@ -21,9 +22,11 @@ The number of rounds depends on the key length as follows :
 
 256 bit key – 14 rounds
 
-https://media.geeksforgeeks.org/wp-content/uploads/20210729145308/aes.png
+![](https://media.geeksforgeeks.org/wp-content/uploads/20210729145308/aes.png)
 
-AES considers each block as a 16 byte (4 byte x 4 byte = 128 ) grid in a column major arrangement. <image>
+AES considers each block as a 16 byte (4 byte x 4 byte = 128 ) grid in a column major arrangement.
+
+![](https://raw.githubusercontent.com/Accession79/crypto-AES/main/images/AES.png)
 
 ### Encryption
 Each round comprises of 4 steps :
@@ -40,6 +43,8 @@ This substitution is done in a way that a byte is never substituted by itself an
 - The third row is shifted twice to the left
 - The fourth row is shifted thrice to the left
 
+![](https://raw.githubusercontent.com/Accession79/crypto-AES/main/images/AES%202.png)
+
 **3. MixColumns**
 
 This step is basically a matrix multiplication
@@ -50,7 +55,7 @@ Each column is multiplied with a specific matrix and thus the position of each b
 
 Now the resultant output of the previous stage is XOR-ed with the corresponding round key
 Here, the 16 bytes is not considered as a grid but just as 128 bits of data
-https://media.geeksforgeeks.org/wp-content/uploads/20210729155115/aesfull.png
+![](https://media.geeksforgeeks.org/wp-content/uploads/20210729155115/aesfull.png)
 
 
 ### Decryption
@@ -73,8 +78,7 @@ Before going further, we should have a library installed
 Already installed in standard python package for python 3.0 or above
 
 - pycryptodome (earlier pycryto)
-so, after some vulnerablities were found in the pycryto, the community  suggested to better use pycryptodome 
-https://blog.sqreen.com/stop-using-pycrypto-use-pycryptodome/
+so, after some vulnerablities were found in the pycryto, the community  suggested to better use [pycryptodome](https://blog.sqreen.com/stop-using-pycrypto-use-pycryptodome/)
 
 ```bash
 pip3 install pycryptodome
@@ -82,14 +86,14 @@ pip3 install pycryptodome
 
 To use AES Encryption and Decryption in **Python**, we have to follow the below steps.
 
-0. Import these libraires
+### 0. Import these libraires
 
 ```bash
 from os import urandom
 from crypto.cipher import AES
 ```
 
-1. Generating a secret key.
+### 1. Generating a secret key.
 
 To generate a secret key, we will use Python os module’s urandom() method.
 
@@ -98,7 +102,7 @@ secret_key = urandom(16)
 ```
 
 
-2. Generating an initialization vector.
+### 2. Generating an initialization vector.
 
 The purpose of the iv is to produce different encrypted data so that an potential attacker will not be able to use cryptanalysis to decode the key data or message data
 We will generate the initialization vector using os.urandom() function.
@@ -109,7 +113,7 @@ iv = urandom(16)
 For successful decryption, the iv must be provided to the recipient, but it does not need to be kept secret.
 It is placed at the beginning of the output file (after the first 8 bytes of the original file size) so that the receiver may read it before decrypting the data.
 
-3. Create an AES Cipher
+### 3. Create an AES Cipher
 To generate the AES cipher object, we will use AES.new() method
 AES.new() method takes three parameters - *secret_key, AES.MODE.CBC, iv*
 
@@ -117,22 +121,22 @@ AES.new() method takes three parameters - *secret_key, AES.MODE.CBC, iv*
 obj = AES.new(secret_key, AES.MODE_CBC, iv)
 ```
 
-CBC is one of the classic modes of Cipher Operations
-
-These are the other modes:
-<image>
+CBC is one of the classic modes of Cipher Operations, below are some the other modes:
+![](https://raw.githubusercontent.com/Accession79/crypto-AES/main/images/AES%203.png)
 
 4. Encrypt the message with AES
 
 ```bash
 message = 'password is triplenine999'
 paddedmessage=pad(message.encode(), 16, style='pkcs7')
+
+encrypted_text = encr_obj.encrypt(paddedmessage)
+print('The encrypted text: ', encrypted_text)
 ```
+
 Here, we have to encode the message (which is in str now) to "utf8"
 
-PKCS #7 is one of the family of standards called Public-Key Cryptography Standards (PKCS) created by RSA Laboratories
-https://en.wikipedia.org/wiki/PKCS_7
-
+[PKCS #7](https://en.wikipedia.org/wiki/PKCS_7) is one of the family of standards called Public-Key Cryptography Standards (PKCS) created by RSA Laboratories
 
 5. Decrypt the message
 
