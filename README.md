@@ -91,6 +91,7 @@ To use AES Encryption and Decryption in **Python**, we have to follow the below 
 ```bash
 from os import urandom
 from crypto.cipher import AES
+from Crypto.Util.Padding import pad
 ```
 
 ### 1. Generating a secret key.
@@ -100,7 +101,6 @@ To generate a secret key, we will use Python os module’s urandom() method.
 ```bash
 secret_key = urandom(16)
 ```
-
 
 ### 2. Generating an initialization vector.
 
